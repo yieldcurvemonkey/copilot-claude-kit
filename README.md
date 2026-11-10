@@ -1,12 +1,12 @@
 # Claude Code → VS Code Copilot Chat kit
 
-One agent, **ultra-engineer**, for VS Code Copilot Chat. It has caveman, ponytail and karpathy-guidelines on all the time, routes each task to the matching skill, and fans substantive work out to scout and verifier subagents. All the files live in `.github/`, so VS Code discovers them per repo.
+One agent, **grugzilla** (grug-brained simplicity, many heads), for VS Code Copilot Chat. It has caveman, ponytail and karpathy-guidelines on all the time, routes each task to the matching skill, and fans substantive work out to scout and verifier subagents. All the files live in `.github/`, so VS Code discovers them per repo.
 
 Checked against the VS Code 1.145 docs (2026-11-04). Choosing a Claude model does not change the harness.
 
 ```
 .github/
-  agents/ultra-engineer.agent.md   THE agent: pick it in the agent picker
+  agents/grugzilla.agent.md        THE agent: pick it in the agent picker
   agents/scout.agent.md            read-only investigator subagent (hidden from the picker)
   agents/verifier.agent.md         adversarial refuter subagent (hidden from the picker)
   skills/<13 skills>/SKILL.md      see the table below; each also works as /<name> from any agent
@@ -18,7 +18,7 @@ licenses/                          upstream licenses for the copied skills
 
 The skills are copied verbatim from [yieldcurvemonkey/copilot-skills](https://github.com/yieldcurvemonkey/copilot-skills) @ `3be605c`, except `ultracode`, which is this kit's own. Update them by diffing against that repo. The agent translates Claude Code wording in them (`superpowers:` links, subagents, CLAUDE.md), so the files stay unedited.
 
-| Skill | When ultra-engineer uses it | Upstream |
+| Skill | When grugzilla uses it | Upstream |
 |---|---|---|
 | caveman | always on (terse prose) | JuliusBrussee/caveman |
 | ponytail | always on (simplest working solution) | DietrichGebert/ponytail |
@@ -46,7 +46,7 @@ The skills are copied verbatim from [yieldcurvemonkey/copilot-skills](https://gi
 
 ## 1. Install into a repo
 
-Run in PowerShell. The repo is private, so cloning it at work needs your GitHub login.
+Run in PowerShell.
 
 ```powershell
 git clone https://github.com/yieldcurvemonkey/copilot-claude-kit "$HOME\copilot-claude-kit"
@@ -81,7 +81,7 @@ The files use only fields that both VS Code harnesses accept. That is why they h
 
 ## 3. Use
 
-- **Main use:** pick **ultra-engineer** in the agent picker.
+- **Main use:** pick **grugzilla** in the agent picker.
 - **One-shot from any agent:** `/<skill> <task>`, e.g. `/ultracode review my uncommitted changes` or `/systematic-debugging the login test fails`.
 - **Model:** Claude Opus 5.5 or Sonnet 5.5. Click `>` next to the model to raise reasoning effort. Avoid Auto, because subagents inherit whatever Auto picks.
 
