@@ -1,17 +1,38 @@
 # Claude Code → VS Code Copilot Chat kit
 
-An ultracode-style agent for VS Code Copilot Chat. All the files live in `.github/`, so VS Code discovers them per repo.
+One agent, **ultra-engineer**, for VS Code Copilot Chat. It has caveman, ponytail and karpathy-guidelines on all the time, routes each task to the matching skill, and fans substantive work out to scout and verifier subagents. All the files live in `.github/`, so VS Code discovers them per repo.
 
 Checked against the VS Code 1.145 docs (2026-11-04). Choosing a Claude model does not change the harness.
 
 ```
 .github/
-  agents/ultracode-mode.agent.md   pick it in the agent picker: every substantive task fans out
+  agents/ultra-engineer.agent.md   THE agent: pick it in the agent picker
   agents/scout.agent.md            read-only investigator subagent (hidden from the picker)
   agents/verifier.agent.md         adversarial refuter subagent (hidden from the picker)
-  skills/ultracode/SKILL.md        the protocol, also usable as /ultracode <task> from any agent
-  copilot-instructions.md          Claude Code-style working habits (always on)
+  skills/<13 skills>/SKILL.md      see the table below; each also works as /<name> from any agent
+  copilot-instructions.md          Claude Code-style working habits (always on, for every agent)
+licenses/                          upstream licenses for the copied skills
 ```
+
+## Skills
+
+The skills are copied verbatim from [yieldcurvemonkey/copilot-skills](https://github.com/yieldcurvemonkey/copilot-skills) @ `3be605c`, except `ultracode`, which is this kit's own. Update them by diffing against that repo. The agent translates Claude Code wording in them (`superpowers:` links, subagents, CLAUDE.md), so the files stay unedited.
+
+| Skill | When ultra-engineer uses it | Upstream |
+|---|---|---|
+| caveman | always on (terse prose) | JuliusBrussee/caveman |
+| ponytail | always on (simplest working solution) | DietrichGebert/ponytail |
+| karpathy-guidelines | always on (surgical changes, explicit assumptions) | forrestchang/andrej-karpathy-skills |
+| interview-me | vague asks | addyosmani/agent-skills |
+| systematic-debugging | bugs and failures, before any fix | obra/superpowers |
+| test-driven-development | feature or bugfix code | obra/superpowers |
+| incremental-implementation | multi-file or big changes | addyosmani/agent-skills |
+| source-driven-development | framework or library APIs | addyosmani/agent-skills |
+| doubt-driven-development | high-stakes decisions (uses the verifier as its fresh-context reviewer) | addyosmani/agent-skills |
+| constraint-driven-development | no quality bar, or checks being silenced | addyosmani/agent-skills |
+| receiving-code-review | incoming review feedback | obra/superpowers |
+| ultracode | substantive review, audit, research, multi-file change | this kit |
+| verification-before-completion | before any "done", commit or PR | obra/superpowers |
 
 ## 0. Check first (2 min)
 
@@ -39,6 +60,8 @@ Get-Content "$k\copilot-instructions.md" | Add-Content "$r\copilot-instructions.
 
 Or open this repo itself in VS Code to try it out.
 
+Skills in a shared repo's `.github/skills` are visible to your teammates' agents too. To keep the kit personal, copy `agents` and `skills` into `~\.copilot\` instead. The agent's links to the skills still resolve there, because the two folders are siblings in both places.
+
 Then reload the window. Run **Chat: Open Customizations** and check that the Agents and Skills tabs list the new files.
 
 ## 2. Harness
@@ -58,8 +81,8 @@ The files use only fields that both VS Code harnesses accept. That is why they h
 
 ## 3. Use
 
-- **Standing mode:** pick **ultracode-mode** in the agent picker.
-- **One-shot from any agent:** `/ultracode review my uncommitted changes`.
+- **Main use:** pick **ultra-engineer** in the agent picker.
+- **One-shot from any agent:** `/<skill> <task>`, e.g. `/ultracode review my uncommitted changes` or `/systematic-debugging the login test fails`.
 - **Model:** Claude Opus 5.5 or Sonnet 5.5. Click `>` next to the model to raise reasoning effort. Avoid Auto, because subagents inherit whatever Auto picks.
 
 ## 4. Smoke tests (things the docs don't promise)
